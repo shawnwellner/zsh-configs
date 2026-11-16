@@ -1,0 +1,7 @@
+# Never commit secrets or private files. Your real ~/.env and ~/.aliases live outside the repo;
+# these catch a copy that lands in the repo folder by mistake.
+# .env is blocked everywhere; .aliases only at the top, because zsh/.aliases is the public starter.
+.env
+/.aliases
+*.bak*
+.zsh_history

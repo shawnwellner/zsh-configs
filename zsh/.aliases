@@ -1,0 +1,55 @@
+# ~/.aliases: your aliases. ~/.zshrc loads this file (add it to ~/.bashrc too if you like).
+# Starter copy from zsh-configs. The installer only creates ~/.aliases when it doesn't
+# exist and never touches it again, so make it yours. Keep plain sh syntax so bash can load it.
+
+# Reload the current shell's config
+if [ -n "$ZSH_VERSION" ]; then alias init='source ~/.zshrc'; else alias init='source ~/.bashrc'; fi
+
+# Listing
+alias ll='ls -l --color=auto'
+alias lla='ls -la --color=auto'
+
+# Files/Folders
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# System updates: apt on Debian/Ubuntu, pacman on Arch. Arch has no safe "refresh the
+# list only" step (it invites half-upgrades), so both run a full upgrade there.
+if command -v apt-get >/dev/null 2>&1; then
+  alias update='sudo apt update'
+  alias upgrade='sudo apt update && sudo apt upgrade -y'
+elif command -v pacman >/dev/null 2>&1; then
+  alias update='sudo pacman -Syu'
+  alias upgrade='sudo pacman -Syu'
+fi
+
+# Docker
+alias prune='docker system prune'
+alias dc='docker compose'
+alias dps="docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}'"
+alias dcps="docker compose ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}'"
+
+alias dlogs='docker logs -f --tail=100'    # dlogs <container>
+alias dex='docker exec -it'                # dex <container> sh
+alias dstats='docker stats --no-stream'
+
+# Docker Compose (run inside a project folder)
+alias dcu='docker compose up -d'
+alias dcd='docker compose down'
+alias dcr='docker compose restart'
+alias dcl='docker compose logs -f --tail=100'
+# Pull new images and recreate the stack; optionally just some services: dcupdate web db
+dcupdate() { docker compose pull "$@" && docker compose up -d "$@"; }
+
+# System
+alias dfh='df -h -x tmpfs -x overlay -x squashfs'   # disk usage without Docker/snap clutter
+dus() { du -h --max-depth=1 "${1:-.}" | sort -h; }  # size of each folder in a dir (default: here), biggest last
+alias jlog='journalctl -f -u'                       # jlog nginx: follow a service's logs
+alias path='echo "$PATH" | tr ":" "\n"'
+
+# Listening ports
+alias ports='netstat -ntlp'
+
+# Network
+alias myip='curl -s https://ifconfig.me; echo'
