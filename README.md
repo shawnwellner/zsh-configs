@@ -3,6 +3,13 @@
 A zsh setup: Oh My Zsh, four community plugins, and a Kali-style [Starship](https://starship.rs)
 prompt. Works on Ubuntu/Debian (apt) and Arch-based systems (pacman), including WSL.
 
+It also turns on some of Oh My Zsh's built-in plugins, which need no install:
+
+- `git` and `docker`: completions and shortcuts (`docker` stays idle where Docker isn't installed)
+- `sudo`: press Esc twice to put `sudo` in front of the current or last command
+- `extract`: `extract <archive>` (or `x`) unpacks any archive type
+- `z`: `z <part of a path>` jumps to a folder you've visited before
+
 ## Install
 
 ```bash
@@ -11,7 +18,7 @@ curl -fsSL https://raw.githubusercontent.com/shawnwellner/zsh-configs/main/insta
 
 Pipe it to `bash`, not `sh`. This clones the repo to `~/.dotfiles` and then:
 
-1. installs anything missing from `zsh git curl ca-certificates net-tools`, using apt or pacman,
+1. installs anything missing from `zsh git curl ca-certificates net-tools unzip`, using apt or pacman,
    whichever the machine has (asks for sudo). On Arch it never refreshes the package list on its
    own, because that can leave the system half-upgraded; if the list is stale, it asks you to run
    `sudo pacman -Syu` first
@@ -122,8 +129,9 @@ rm -rf ~/.oh-my-zsh ~/.local/bin/starship ~/.dotfiles # 4. remove what was insta
 
 For step 3, if there are several backup folders, the oldest one has your original files.
 
-To remove the packages too: `sudo apt remove zsh net-tools`, or on Arch
-`sudo pacman -R zsh net-tools`. Leave `git`, `curl` and `ca-certificates`, since other tools need them.
+To remove the packages too: `sudo apt remove zsh net-tools unzip`, or on Arch
+`sudo pacman -R zsh net-tools unzip`. Leave `git`, `curl` and `ca-certificates`, since other tools need them.
+Skip `unzip` if anything else on the machine uses it.
 
 None of this touches `~/.env`, `~/.aliases` or `~/.zsh_history`. If your `~/.aliases` is
 still just the starter and you don't want it, delete it too.

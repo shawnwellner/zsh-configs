@@ -12,7 +12,14 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME=""   # the prompt comes from Starship (below)
 
 plugins=(
+  # Built into Oh My Zsh (nothing to install). docker only adds completions and
+  # shortcuts where Docker is installed; elsewhere it does nothing.
   git
+  docker      # docker completions + shortcuts (dpsa, dlo, dxcit, ...)
+  sudo       # press Esc twice to put sudo in front of the current/last command
+  extract     # `extract <archive>` (or `x`) unpacks any archive type
+  z           # `z <part of a path>` jumps to a folder you've visited before
+  # Installed by install.sh into $ZSH/custom/plugins
   zsh-autosuggestions
   zsh-syntax-highlighting
   zsh-vi-mode

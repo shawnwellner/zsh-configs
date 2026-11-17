@@ -32,7 +32,8 @@ BACKUP_NAME="$(date +%Y%m%d-%H%M%S)"
 BACKUP_DIR="$HOME/.dotfiles-backup/$BACKUP_NAME"
 
 # Same package names on Debian/Ubuntu (apt) and Arch (pacman).
-PACKAGES=(zsh git curl ca-certificates net-tools)
+# net-tools: `netstat` for the `ports` alias. unzip: .zip files for the `extract` plugin.
+PACKAGES=(zsh git curl ca-certificates net-tools unzip)
 
 # path-under-$OMZ_CUSTOM  git-url
 OMZ_ADDONS=(
@@ -89,7 +90,7 @@ Usage: install.sh [options]
        curl -fsSL https://raw.githubusercontent.com/shawnwellner/zsh-configs/main/install.sh | bash -s -- [options]
 
 Options:
-  --no-packages    skip installing packages (zsh git curl ca-certificates net-tools,
+  --no-packages    skip installing packages (zsh git curl ca-certificates net-tools unzip,
                    with apt on Debian/Ubuntu or pacman on Arch)
   --no-chsh        don't make zsh the login shell
   -h, --help       show this help
